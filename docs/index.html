@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interactive charts | Data visualization portfolio</title>
+<meta name="description" content="Live plotly charts from a data visualization portfolio made with matplotlib, seaborn and plotly.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --paper: #ffffff;
+    --ink: #1f2933;
+    --muted: #5f6b78;
+    --rule: #dde2e8;
+    --link: #0072b2;
+    --focus: #e69f00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --paper: #1a2129;
+      --ink: #e8ecf0;
+      --muted: #a7b1bc;
+      --rule: #2f3944;
+      --link: #56b4e9;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 400 1.0625rem/1.55 "Fira Sans", Inter, Arial, sans-serif;
+  }
+  main { max-width: 78rem; margin: 0 auto; padding: 3.5rem 1.5rem 2rem; }
+  a { color: var(--link); text-underline-offset: 0.2em; }
+  a:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 2px; }
+
+  .intro { max-width: 44rem; margin-bottom: 2.75rem; }
+  h1 { font-size: clamp(2rem, 4.2vw, 2.75rem); line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 1rem; }
+  .intro p { margin: 0 0 1rem; }
+  .intro .links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+
+  .palette { margin-top: 2rem; }
+  .palette p { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.9375rem; }
+  .palette ul {
+    display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; margin: 0; padding: 0; list-style: none;
+    font-size: 0.875rem; color: var(--muted); font-variant-numeric: tabular-nums;
+  }
+  .palette li { display: flex; align-items: center; gap: 0.5rem; }
+  .palette li::before { content: ""; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--c); }
+
+  .chart {
+    display: grid; grid-template-columns: minmax(14rem, 17rem) 1fr; gap: 2.5rem;
+    padding: 2.5rem 0; border-top: 1px solid var(--rule);
+  }
+  .chart h2 { font-size: 1.375rem; line-height: 1.25; margin: 0 0 0.75rem; }
+  .notes p { margin: 0 0 0.85rem; font-size: 0.98rem; }
+  .notes .tools { color: var(--muted); font-size: 0.9375rem; }
+  .notes .links { display: flex; flex-direction: column; gap: 0.35rem; margin-top: 1.25rem; font-size: 0.9375rem; }
+  .plate {
+    background: #fff; border: 1px solid var(--rule); border-radius: 6px;
+    overflow-x: auto; aspect-ratio: 16 / 10; min-height: 26rem;
+  }
+  .plate iframe { display: block; width: 100%; min-width: 44rem; height: 100%; border: 0; }
+  footer { border-top: 1px solid var(--rule); padding: 1.5rem 0 1rem; color: var(--muted); font-size: 0.9375rem; }
+
+  @media (max-width: 56rem) {
+    main { padding-top: 2.25rem; }
+    .chart { grid-template-columns: 1fr; gap: 1.25rem; }
+    .plate { aspect-ratio: auto; height: 34rem; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="intro">
+    <h1>Data visualization portfolio</h1>
+    <p>Four of its twelve charts, live in your browser: hover, zoom, filter and press play. Static versions and the code for all twelve are in the repository.</p>
+    <p class="links"><a data-repo="" href="../README.md">Repository</a><a data-repo="#gallery" href="../README.md#gallery">All twelve charts</a></p>
+    <div class="palette">
+      <p>Every chart draws on the same Okabe–Ito palette, which stays distinguishable for the common forms of colour blindness.</p>
+      <ul>
+        <li style="--c:#0072B2">#0072B2</li>
+        <li style="--c:#E69F00">#E69F00</li>
+        <li style="--c:#009E73">#009E73</li>
+        <li style="--c:#D55E00">#D55E00</li>
+        <li style="--c:#CC79A7">#CC79A7</li>
+        <li style="--c:#56B4E9">#56B4E9</li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="chart" aria-labelledby="bubbles">
+    <div class="notes">
+      <h2 id="bubbles">Animated bubble chart</h2>
+      <p>Every country as a bubble: income on a log scale, life expectancy up the side and population as size, from 1952 to 2007.</p>
+      <p>Press play or drag the slider. Hover a bubble for its numbers, and click a continent in the legend to hide it.</p>
+      <p class="tools">plotly express, animation frames, log axis, shared template</p>
+      <p class="links"><a data-src="charts/08_animated_bubbles_gapminder.py" href="../charts/08_animated_bubbles_gapminder.py">View the code</a><a href="charts/08_animated_bubbles_gapminder.html">Open full screen</a></p>
+    </div>
+    <div class="plate"><iframe src="charts/08_animated_bubbles_gapminder.html" title="Animated bubble chart of income and life expectancy by country, 1952 to 2007"></iframe></div>
+  </section>
+
+  <section class="chart" aria-labelledby="map">
+    <div class="notes">
+      <h2 id="map">Choropleth map</h2>
+      <p>Life expectancy in 2007, country by country, from orange for the shortest lives to blue for the longest.</p>
+      <p>Hover a country for its value. Drag to pan and scroll to zoom.</p>
+      <p class="tools">plotly express, natural-earth projection, custom colour scale</p>
+      <p class="links"><a data-src="charts/09_choropleth_life_expectancy.py" href="../charts/09_choropleth_life_expectancy.py">View the code</a><a href="charts/09_choropleth_life_expectancy.html">Open full screen</a></p>
+    </div>
+    <div class="plate"><iframe src="charts/09_choropleth_life_expectancy.html" title="World map of life expectancy in 2007" loading="lazy"></iframe></div>
+  </section>
+
+  <section class="chart" aria-labelledby="treemap">
+    <div class="notes">
+      <h2 id="treemap">Treemap</h2>
+      <p>Population by continent and country. Area shows how many people live there; colour shows life expectancy on the same scale as the map.</p>
+      <p>Click a continent to zoom in, then the top bar to zoom back out.</p>
+      <p class="tools">plotly express, population-weighted colour, uniform label sizes</p>
+      <p class="links"><a data-src="charts/10_treemap_population.py" href="../charts/10_treemap_population.py">View the code</a><a href="charts/10_treemap_population.html">Open full screen</a></p>
+    </div>
+    <div class="plate"><iframe src="charts/10_treemap_population.html" title="Treemap of population and life expectancy by country, 2007" loading="lazy"></iframe></div>
+  </section>
+
+  <section class="chart" aria-labelledby="titanic">
+    <div class="notes">
+      <h2 id="titanic">Parallel categories</h2>
+      <p>Titanic passengers traced from ticket class through age and sex group to the outcome. Unlike a Sankey diagram, every group keeps its whole path.</p>
+      <p>Hover a ribbon for counts and shares, and drag a category to reorder it.</p>
+      <p class="tools">plotly graph objects, parcats trace, fixed category order</p>
+      <p class="links"><a data-src="charts/11_parallel_categories_titanic.py" href="../charts/11_parallel_categories_titanic.py">View the code</a><a href="charts/11_parallel_categories_titanic.html">Open full screen</a></p>
+    </div>
+    <div class="plate"><iframe src="charts/11_parallel_categories_titanic.html" title="Parallel categories diagram of Titanic survival by class and passenger group" loading="lazy"></iframe></div>
+  </section>
+
+  <footer>
+    <p>Data: Gapminder (via plotly) and the Titanic passenger list (via seaborn). Made with Python, using matplotlib, seaborn and plotly.</p>
+  </footer>
+</main>
+<script>
+  // On GitHub Pages, point the code links at the repository this site is published from.
+  (function () {
+    var repo = null;
+    if (/\.github\.io$/.test(location.hostname)) {
+      var user = location.hostname.split(".")[0];
+      var first = location.pathname.split("/").filter(Boolean)[0];
+      repo = "https://github.com/" + user + "/" + (first && first.indexOf(".") === -1 ? first : user + ".github.io");
+    }
+    if (!repo) return;
+    document.querySelectorAll("[data-src]").forEach(function (a) { a.href = repo + "/blob/main/" + a.dataset.src; });
+    document.querySelectorAll("[data-repo]").forEach(function (a) { a.href = repo + a.dataset.repo; });
+  })();
+</script>
+</body>
+</html>
